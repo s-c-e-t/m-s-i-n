@@ -1,1 +1,32 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirm Location</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="container">
+<h1>Confirm Location</h1>
+<p>Type the location or secret phrase you deduced to check you are going to the correct area.</p>
+<input type="text" id="location">
+<button onclick="verify()">Verify</button>
+<div id="message"></div>
+</div>
+<script>
+const expected = 'Under the Christmas tree';
+function verify(){
+const val = document.getElementById('location').value.trim().toLowerCase();
+const msgDiv = document.getElementById('message');
+if(val === expected.toLowerCase()){
+msgDiv.textContent = 'Confirmed — you are heading to the correct area.';
+msgDiv.className = 'message success';
+} else {
+msgDiv.textContent = 'That does not match our expected location. Double-check your deduction.';
+msgDiv.className = 'message error';
+}
+}
+</script>
+</body>
+</html>
