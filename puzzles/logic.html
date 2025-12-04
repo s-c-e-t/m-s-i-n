@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+'Ava rides a bicycle, and the person with the Candy is not Ben.',
+'The Green satchel goes with the Ornament.'
+];
+let hintIndex = 0;
+function showHint() {
+if(hintIndex < clues.length){
+const div = document.getElementById('hints');
+const p = document.createElement('div');
+p.className = 'hint';
+p.textContent = clues[hintIndex];
+div.appendChild(p);
+hintIndex++;
+}
+}
 
+
+const people = ['Ava','Ben','Cole'];
+const gifts = ['Booklet','Ornament','Candy'];
+const colors = ['Red','Green','Blue'];
+const vehicles = ['Bicycle','Car','Sled'];
+const solution = {
+Ava: {gift:'Booklet', color:'Blue', vehicle:'Bicycle'},
+Ben: {gift:'Candy', color:'Red', vehicle:'Car'},
+Cole: {gift:'Ornament', color:'Green', vehicle:'Sled'}
+};
+
+
+const answersDiv = document.getElementById('answers');
+people.forEach(p=>{
+const container = document.createElement('div');
+container.innerHTML = `<strong>${p}</strong><br>
+Gift: <select id='${p}-gift'><option value=''>Select</option>${gifts.map(g=>`<option value='${g}'>${g}</option>`)}</select>
+Color: <select id='${p}-color'><option value=''>Select</option>${colors.map(c=>`<option value='${c}'>${c}</option>`)}</select>
+Vehicle: <select id='${p}-vehicle'><option value=''>Select</option>${vehicles.map(v=>`<option value='${v}'>${v}</option>`)}</select><br><br>`;
+answersDiv.appendChild(container);
+});
+
+
+function checkSolution(){
+let correct = true;
+people.forEach(p=>{
+const gift = document.getElementById(`${p}-gift`).value;
+const color = document.getElementById(`${p}-color`).value;
+const vehicle = document.getElementById(`${p}-vehicle`).value;
+if(gift!==solution[p].gift || color!==solution[p].color || vehicle!==solution[p].vehicle){
+correct = false;
+}
+});
+const msgDiv = document.getElementById('message');
+if(correct){
+msgDiv.textContent='Mission success! Puzzle solved.';
+msgDiv.className='message success';
+} else {
+msgDiv.textContent='Not correct — check the clues and try again.';
+msgDiv.className='message error';
+}
+}
+</script>
+</body>
+</html>
