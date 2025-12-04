@@ -1,61 +1,114 @@
 <!DOCTYPE html>
-'Ava rides a bicycle, and the person with the Candy is not Ben.',
-'The Green satchel goes with the Ornament.'
-];
-let hintIndex = 0;
-function showHint() {
-if(hintIndex < clues.length){
-const div = document.getElementById('hints');
-const p = document.createElement('div');
-p.className = 'hint';
-p.textContent = clues[hintIndex];
-div.appendChild(p);
-hintIndex++;
-}
-}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logic Puzzle — Operation: Carol</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Logic Puzzle — Operation: Carol</h1>
+    <p>
+      Agents: three volunteers are to deliver small carol booklets. Each has a unique vehicle
+      and a unique color of satchel. Use the clues to assign each person the correct satchel and vehicle.
+    </p>
 
+    <div>
+      <button onclick="showHint()">Reveal Next Hint</button>
+      <div id="hints"></div>
+    </div>
 
-const people = ['Ava','Ben','Cole'];
-const gifts = ['Booklet','Ornament','Candy'];
-const colors = ['Red','Green','Blue'];
-const vehicles = ['Bicycle','Car','Sled'];
-const solution = {
-Ava: {gift:'Booklet', color:'Blue', vehicle:'Bicycle'},
-Ben: {gift:'Candy', color:'Red', vehicle:'Car'},
-Cole: {gift:'Ornament', color:'Green', vehicle:'Sled'}
-};
+    <div>
+      <h2>Assign your answers</h2>
+      <div id="answers"></div>
+      <button onclick="checkSolution()">Check Solution</button>
+      <div id="message"></div>
+    </div>
+  </div>
 
+  <script>
+    // --- Clues ---
+    const clues = [
+      'The person with the Red satchel is not Cole.',
+      'Ava rides a bicycle, and the person with the Candy is not Ben.',
+      'The Green satchel goes with the Ornament.'
+    ];
+    let hintIndex = 0;
 
-const answersDiv = document.getElementById('answers');
-people.forEach(p=>{
-const container = document.createElement('div');
-container.innerHTML = `<strong>${p}</strong><br>
-Gift: <select id='${p}-gift'><option value=''>Select</option>${gifts.map(g=>`<option value='${g}'>${g}</option>`)}</select>
-Color: <select id='${p}-color'><option value=''>Select</option>${colors.map(c=>`<option value='${c}'>${c}</option>`)}</select>
-Vehicle: <select id='${p}-vehicle'><option value=''>Select</option>${vehicles.map(v=>`<option value='${v}'>${v}</option>`)}</select><br><br>`;
-answersDiv.appendChild(container);
-});
+    function showHint() {
+      if (hintIndex < clues.length) {
+        const div = document.getElementById('hints');
+        const p = document.createElement('div');
+        p.className = 'hint';
+        p.textContent = clues[hintIndex];
+        div.appendChild(p);
+        hintIndex++;
+      }
+    }
 
+    // --- Puzzle setup ---
+    const people = ['Ava', 'Ben', 'Cole'];
+    const gifts = ['Booklet', 'Ornament', 'Candy'];
+    const colors = ['Red', 'Green', 'Blue'];
+    const vehicles = ['Bicycle', 'Car', 'Sled'];
 
-function checkSolution(){
-let correct = true;
-people.forEach(p=>{
-const gift = document.getElementById(`${p}-gift`).value;
-const color = document.getElementById(`${p}-color`).value;
-const vehicle = document.getElementById(`${p}-vehicle`).value;
-if(gift!==solution[p].gift || color!==solution[p].color || vehicle!==solution[p].vehicle){
-correct = false;
-}
-});
-const msgDiv = document.getElementById('message');
-if(correct){
-msgDiv.textContent='Mission success! Puzzle solved.';
-msgDiv.className='message success';
-} else {
-msgDiv.textContent='Not correct — check the clues and try again.';
-msgDiv.className='message error';
-}
-}
-</script>
+    const solution = {
+      Ava: { gift: 'Booklet', color: 'Blue', vehicle: 'Bicycle' },
+      Ben: { gift: 'Candy', color: 'Red', vehicle: 'Car' },
+      Cole: { gift: 'Ornament', color: 'Green', vehicle: 'Sled' }
+    };
+
+    // --- Render answer selectors ---
+    const answersDiv = document.getElementById('answers');
+
+    people.forEach(person => {
+      const container = document.createElement('div');
+      container.innerHTML = `
+        <strong>${person}</strong><br>
+        Gift:
+        <select id="${person}-gift">
+          <option value="">Select</option>
+          ${gifts.map(g => `<option value="${g}">${g}</option>`).join('')}
+        </select>
+        Color:
+        <select id="${person}-color">
+          <option value="">Select</option>
+          ${colors.map(c => `<option value="${c}">${c}</option>`).join('')}
+        </select>
+        Vehicle:
+        <select id="${person}-vehicle">
+          <option value="">Select</option>
+          ${vehicles.map(v => `<option value="${v}">${v}</option>`).join('')}
+        </select>
+        <br><br>
+      `;
+      answersDiv.appendChild(container);
+    });
+
+    // --- Check solution ---
+    function checkSolution() {
+      let correct = true;
+      people.forEach(person => {
+        const gift = document.getElementById(`${person}-gift`).value;
+        const color = document.getElementById(`${person}-color`).value;
+        const vehicle = document.getElementById(`${person}-vehicle`).value;
+        if (gift !== solution[person].gift ||
+            color !== solution[person].color ||
+            vehicle !== solution[person].vehicle) {
+          correct = false;
+        }
+      });
+
+      const msgDiv = document.getElementById('message');
+      if (correct) {
+        msgDiv.textContent = 'Mission success! Puzzle solved.';
+        msgDiv.className = 'message success';
+      } else {
+        msgDiv.textContent = 'Not correct — check the clues and try again.';
+        msgDiv.className = 'message error';
+      }
+    }
+  </script>
 </body>
 </html>
