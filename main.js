@@ -5,8 +5,8 @@ const PAGES = [
 ];
 
 
-// Load unlocked pages from localStorage
-let unlocked = JSON.parse(localStorage.getItem('unlocked')) || {};
+// Load unlocked pages from sessionStorage
+let unlocked = JSON.parse(sessionStorage.getItem('unlocked')) || {};
 
 
 const pagesDiv = document.getElementById('pages');
@@ -29,7 +29,7 @@ function renderPages() {
         const code = prompt(`Enter code to unlock: ${p.title}`);
         if (code && code.trim() === p.password) {
           unlocked[p.id] = true;
-          localStorage.setItem('unlocked', JSON.stringify(unlocked));
+          sessionStorage.setItem('unlocked', JSON.stringify(unlocked));
           alert('Page unlocked!');
           window.location.href = p.file;
         } else {
@@ -48,7 +48,7 @@ function unlockPage(page) {
   const code = prompt(`Enter code to unlock: ${page.title}`);
   if(code && code.trim() === page.password) {
     unlocked[page.id] = true;
-    localStorage.setItem('unlocked', JSON.stringify(unlocked));
+    sessionStorage.setItem('unlocked', JSON.stringify(unlocked));
     alert('Page unlocked!');
     window.location.href = page.file;
   } else {
