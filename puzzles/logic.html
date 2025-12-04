@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logic Puzzle — Operation: Carol</title>
+  <title>Where's the gifts? (Logic Puzzle)</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Logic Puzzle — Operation: Carol</h1>
+    <h1>Where's the gifts? (Logic Puzzle)</h1>
     <p>
-      Agents: three volunteers are to deliver small carol booklets. Each has a unique vehicle
-      and a unique color of satchel. Use the clues to assign each person the correct satchel and vehicle.
+      Grandma has received four gifts from four different people, in four different months, and keeps them in four different rooms.
+      Use the clues to figure out which month each person gave the gift and the correct room that it's in.
     </p>
 
     <div>
@@ -30,33 +30,39 @@
   <script>
     // --- Clues ---
     const clues = [
-      'The person with the Red satchel is not Cole.',
-      'Ava rides a bicycle, and the person with the Candy is not Ben.',
-      'The Green satchel goes with the Ornament.'
+      'Place "O" where Jacob and Kitchen align (clue 2). Place "O" where Rob and March align. (clue 4) [Don\'t forget to place "X", horizontally and vertically from those "O"s, since those alignments are impossible now.]',
+      'Kate\'s gift was before the gift in the Bedroom, therefore Kate\'s gift cannot be the one in the Bedroom. (clue 1) [Place "X" where Kate and Bedroom align.]',
+      'Kate\'s gift could not be given in April because if it was that would make the Bedroom gift given in May, which is not an option. (clue 1) [Place an "X" where Kate and April align.]',
+      'Now, Kate\'s gift must have been given in January or February. So, the Bedroom gift must have been given in February or March. (clue 1) [Place "X"s where Bedroom and January/April align.]',
+      'Jacob\'s gift cannot be in January or February since it must be 2 months after the one that\'s in the Living Room. (clue 3) [Place "O" where Jacob and April align. Don\'t forget the "X"s.]',
+      'Jacob\'s gift is in the Kitchen (clue 2). Using the previous hint. [Place "O" where April and Kitchen align. Don\'t forget the "X"s.]'
+      'The Living Room gift was given in February. (clue 3) [Place "O" where Living Room and February align. Don\'t forget the "X"s.]',
+      'The Bedroom gift only has one month option now. [Place "O" where Bedroom and March align. Don\'t forget the "X"s.]',
+      'The Dining Room gift only has one month option now. [Place "O" where Dining Room and January align.]',
+      'Kate\'s gift was given in February. (clue 1) [Place "O" where Kate and February align. Don\'t forget the "X"s.]',
+      'Susan\'s gift was given in January (only option left), therefore Susan\'s gift is in the...',
+      'Dining Room!'
     ];
     let hintIndex = 0;
 
     function showHint() {
       if (hintIndex < clues.length) {
         const div = document.getElementById('hints');
-        const p = document.createElement('div');
-        p.className = 'hint';
-        p.textContent = clues[hintIndex];
-        div.appendChild(p);
+        div.innerHTML = `<div class="hint">${clues[hintIndex]}</div>`;
         hintIndex++;
       }
     }
 
     // --- Puzzle setup ---
-    const people = ['Ava', 'Ben', 'Cole'];
-    const gifts = ['Booklet', 'Ornament', 'Candy'];
-    const colors = ['Red', 'Green', 'Blue'];
-    const vehicles = ['Bicycle', 'Car', 'Sled'];
+    const people = ['Kate', 'Jacob', 'Rob', 'Susan'];
+    const months = ['January', 'February', 'March', 'April'];
+    const rooms = ['Kitchen', 'Dining Room', 'Living Room', 'Bedroom'];
 
     const solution = {
-      Ava: { gift: 'Booklet', color: 'Blue', vehicle: 'Bicycle' },
-      Ben: { gift: 'Candy', color: 'Red', vehicle: 'Car' },
-      Cole: { gift: 'Ornament', color: 'Green', vehicle: 'Sled' }
+      Kate: { months: 'February', rooms: 'Living Room'},
+      Jacob: { months: 'April', rooms: 'Kitchen'},
+      Rob: { months: 'March', rooms: 'Bedroom'},
+      Susan: { months: 'January', rooms: 'Dining Room'},
     };
 
     // --- Render answer selectors ---
@@ -66,20 +72,15 @@
       const container = document.createElement('div');
       container.innerHTML = `
         <strong>${person}</strong><br>
-        Gift:
-        <select id="${person}-gift">
+        Month:
+        <select id="${person}-month">
           <option value="">Select</option>
           ${gifts.map(g => `<option value="${g}">${g}</option>`).join('')}
         </select>
-        Color:
-        <select id="${person}-color">
+        Room:
+        <select id="${person}-room">
           <option value="">Select</option>
           ${colors.map(c => `<option value="${c}">${c}</option>`).join('')}
-        </select>
-        Vehicle:
-        <select id="${person}-vehicle">
-          <option value="">Select</option>
-          ${vehicles.map(v => `<option value="${v}">${v}</option>`).join('')}
         </select>
         <br><br>
       `;
@@ -90,12 +91,10 @@
     function checkSolution() {
       let correct = true;
       people.forEach(person => {
-        const gift = document.getElementById(`${person}-gift`).value;
-        const color = document.getElementById(`${person}-color`).value;
-        const vehicle = document.getElementById(`${person}-vehicle`).value;
-        if (gift !== solution[person].gift ||
-            color !== solution[person].color ||
-            vehicle !== solution[person].vehicle) {
+        const month = document.getElementById(`${person}-month`).value;
+        const room = document.getElementById(`${person}-room`).value;
+        if (month !== solution[person].month ||
+            room !== solution[person].room) {
           correct = false;
         }
       });
