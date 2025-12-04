@@ -1,7 +1,8 @@
 // Pages and passwords
 const PAGES = [
-  {id: 'logic', title: 'Logic Puzzle — Operation: Carol', file: 'puzzles/logic.html', password: 'PUZZLE-1'},
-  {id: 'confirm', title: 'Confirm Location', file: 'puzzles/confirm.html', password: 'CONFIRM-1'}
+  {id: 'logic', title: 'Logic Puzzle', file: 'puzzles/logic.html', password: 'PUZZLE-1'},
+  {id: 'confirm', title: 'Confirm Location', file: 'puzzles/confirm.html', password: 'CONFIRM-1'},
+  {id: 'test', title: 'test title', file: 'puzzles/test.html', password: 'test-1'}
 ];
 
 
