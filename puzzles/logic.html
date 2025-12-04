@@ -70,22 +70,23 @@
 
     people.forEach(person => {
       const container = document.createElement('div');
+      container.style.marginBottom = '1rem'; // space between each person
       container.innerHTML = `
         <strong>${person}</strong><br>
-        Month:
-        <select id="${person}-month">
-          <option value="">Select</option>
-          ${months.map(g => `<option value="${g}">${g}</option>`).join('')}
-        </select>
-        Room:
-        <select id="${person}-room">
-          <option value="">Select</option>
-          ${rooms.map(c => `<option value="${c}">${c}</option>`).join('')}
-        </select>
-        <br><br>
+        <div>
+          <select id="${person}-month">
+            ${months.map((m, i) => `<option value="${m}" ${i === 0 ? 'selected' : ''}>${m}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <select id="${person}-room">
+            ${rooms.map((r, i) => `<option value="${r}" ${i === 0 ? 'selected' : ''}>${r}</option>`).join('')}
+          </select>
+        </div>
       `;
       answersDiv.appendChild(container);
     });
+
 
     // --- Check solution ---
     function checkSolution() {
