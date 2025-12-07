@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Confirm Location</title>
+	<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+	<div class="container">
+		<h1>Confirm Location</h1>
+		<p>Type the location or secret phrase you deduced to check you are going to the correct area.</p>
+
+		<input type="text" id="answer" placeholder="Enter the room..." />
+		<button onclick="checkAnswer()">Verify</button>
+		<p><small><small>1 check every 60 seconds</small></small></p>
+
+		<div id="message"></div>
+	</div>
+
+	<script>
+	  // ----- Settings -----
+	  const maxAttempts = 1;     // allowed attempts before lockout
+	  const lockoutSeconds = 60; // duration of lockout in seconds
+
+	  let attempts = Number(localStorage.getItem("attempts") || 0);
+	  let lockoutEnd = Number(localStorage.getItem("lockoutEnd") || 0);
+	  let lockoutTimer = null;
+
+	  function normalize(str) {
+	  	return String(str || '')
+	  	.trim()
+	  	.toLowerCase()
+	  	.replace(/[^a-z]/g, "");
+	  }
+
+	  function checkAnswer() {
+	  	const input = document.getElementById("answer").value;
+	  	const message = document.getElementById("message");
+	  	const button = document.querySelector("button");
+
+	  	if (isLockedOut()) {
+	      return; // ignore attempts during lockout
+	  }
+
+	  const cleaned = normalize(input);
+	  const correct = normalize("Dining Room");
+
+	  const acceptedMisspellings = [
+	  	"dinningroom",
+	  	"dinningrm",
+	  	"diningrm",
+	  	"dinning",
+	  	"dinnigroom",
+	  	"diningroom"
+	  ];
+
+	  const isCorrect =
+	  cleaned === correct ||
+	  acceptedMisspellings.includes(cleaned);
+
+	  if (isCorrect) {
+	  	message.textContent = "Correct! Proceed to the Dining Room.";
+	  	message.className = "message success";
+	  	localStorage.removeItem("attempts");
+	  	localStorage.removeItem("lockoutEnd");
+	  	return;
+	  }
+
+	    // Wrong answer
+	  attempts++;
+	  localStorage.setItem("attempts", attempts);
+
+	  if (attempts < maxAttempts) {
+	  	message.textContent = `Incorrect — double-check your notes. (${attempts}/${maxAttempts})`;
+	  	message.className = "message error";
+	  } else {
+	  	startLockout();
+	  }
+	}
+
+	function startLockout() {
+		const message = document.getElementById("message");
+		const button = document.querySelector("button");
+
+		const now = Date.now();
+		lockoutEnd = now + lockoutSeconds * 1000;
+
+	    // save to localStorage so refresh doesn't reset the timer
+		localStorage.setItem("lockoutEnd", lockoutEnd);
+
+		button.disabled = true;
+		updateCountdown();
+	}
+
+	function isLockedOut() {
+		const now = Date.now();
+		return now < lockoutEnd;
+	}
+
+	function updateCountdown() {
+		const message = document.getElementById("message");
+		const button = document.querySelector("button");
+
+		clearInterval(lockoutTimer);
+
+		lockoutTimer = setInterval(() => {
+			const now = Date.now();
+			if (now >= lockoutEnd) {
+				clearInterval(lockoutTimer);
+				unlock();
+				return;
+			}
+
+			const secondsLeft = Math.ceil((lockoutEnd - now) / 1000);
+			message.textContent = `Incorrect — double-check your notes. Please wait ${secondsLeft} seconds.`;
+			message.className = "message error";
+			button.disabled = true;
+	    }, 250); // update smoothly
+	}
+
+	function unlock() {
+		const message = document.getElementById("message");
+		const button = document.querySelector("button");
+
+		attempts = 0;
+		localStorage.removeItem("attempts");
+		localStorage.removeItem("lockoutEnd");
+
+		button.disabled = false;
+		message.textContent = "You may try again.";
+		message.className = "message success";
+	}
+
+	window.onload = () => {
+		if (isLockedOut()) {
+			updateCountdown();
+		}
+	};
+</script>
+
+
+</body>
+</html>

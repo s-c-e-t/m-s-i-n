@@ -19,8 +19,6 @@ function renderPages() {
     const btn = document.createElement('button');
     btn.textContent = p.title;
     
-    // Button should always be clickable to open page, 
-    // regardless of whether it’s unlocked
     btn.onclick = () => {
       if (unlocked[p.id]) {
         // Already unlocked → go to page

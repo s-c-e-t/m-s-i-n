@@ -48,16 +48,18 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #0f0;
-  color: #000;
-  box-shadow: 0 0 20px #0f0, 0 0 40px #ff0;
-}
-
 button:disabled {
   background-color: #555;
   color: #aaa;
   box-shadow: none;
+}
+
+button:active {
+  transform: scale(0.97);
+  background-color: #0f0;
+  color: #000;
+  box-shadow: 0 0 5px #0f0;
+  transition: none;
 }
 
 #pages button {
