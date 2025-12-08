@@ -1,17 +1,57 @@
-// Pages and passwords
 const PAGES = [
-  {id: 'logic', title: 'Logic Puzzle', file: 'puzzles/logic.html', password: 'PUZZLE-1'},
-  {id: 'confirm', title: 'Confirm Location', file: 'puzzles/confirm.html', password: 'CONFIRM-1'},
-  {id: 'test', title: 'test title', file: 'puzzles/test.html', password: 'test-1'}
+  {
+    id: 'clue_01', 
+    title: 'Clue 1: Seriously Do This', 
+    file: 'puzzles/clue_01.html'
+  },
+  {
+    id: 'clue_02', 
+    title: 'Clue 2: A Private Conversation', 
+    file: 'puzzles/clue_02.html'
+  },
+  {
+    id: 'clue_03', 
+    title: 'Clue 3: Logic Puzzle', 
+    file: 'puzzles/clue_03.html'
+  },
+  {
+    id: 'clue_04',
+    title: 'Clue 4: C.U.P.',
+    file: 'puzzles/clue_04.html'
+  },
+  {
+    id: 'clue_05',
+    title: 'Clue 5: Tall or Small',
+    file: 'puzzles/clue_05.html'
+  },
+  {
+    id: 'clue_06',
+    title: 'Clue 6: Getting Thirsty?',
+    file: 'puzzles/clue_06.html'
+  },
+  {
+    id: 'clue_07',
+    title: 'Clue 7: Hmmm?',
+    file: 'puzzles/clue_07.html'
+  },
+  {
+    id: 'clue_08',
+    title: 'Clue 8: Candid Cousin',
+    file: 'puzzles/clue_08.html'
+  },
+  {
+    id: 'clue_09',
+    title: 'Clue 9: Pee-ew',
+    file: 'puzzles/clue_09.html'
+  },
+  {
+    id: 'clue_10',
+    title: 'Clue 10: The End',
+    file: 'puzzles/clue_10.html'
+  }
 ];
 
-
-// Load unlocked pages from sessionStorage
-let unlocked = JSON.parse(sessionStorage.getItem('unlocked')) || {};
-
-
 const pagesDiv = document.getElementById('pages');
-
 
 function renderPages() {
   pagesDiv.innerHTML = '';
@@ -20,40 +60,11 @@ function renderPages() {
     btn.textContent = p.title;
     
     btn.onclick = () => {
-      if (unlocked[p.id]) {
-        // Already unlocked → go to page
-        window.location.href = p.file;
-      } else {
-        // Not unlocked → prompt for code
-        const code = prompt(`Enter code to unlock: ${p.title}`);
-        if (code && code.trim() === p.password) {
-          unlocked[p.id] = true;
-          sessionStorage.setItem('unlocked', JSON.stringify(unlocked));
-          alert('Page unlocked!');
-          window.location.href = p.file;
-        } else {
-          alert('Incorrect code. Check your envelope and try again.');
-        }
-      }
+      window.location.href = p.file;
     };
     
     pagesDiv.appendChild(btn);
   });
 }
-
-
-
-function unlockPage(page) {
-  const code = prompt(`Enter code to unlock: ${page.title}`);
-  if(code && code.trim() === page.password) {
-    unlocked[page.id] = true;
-    sessionStorage.setItem('unlocked', JSON.stringify(unlocked));
-    alert('Page unlocked!');
-    window.location.href = page.file;
-  } else {
-    alert('Incorrect code. Check your envelope and try again.');
-  }
-}
-
 
 renderPages();
