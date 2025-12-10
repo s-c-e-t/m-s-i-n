@@ -1,0 +1,138 @@
+import os
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+from reportlab.lib.units import cm
+
+# --- Configuration ---
+output_filename = "clue_cards_v2.pdf"
+qr_folder = "QR Codes"       # Folder containing QR codes
+images_folder = "puzzles"    # Folder containing puzzle images (if any)
+card_width = 10 * cm
+card_height = 10 * cm
+qr_size = 2.5 * cm
+margin_x = 0.5 * cm
+margin_y = 1 * cm
+spacing = 0.5 * cm
+
+# --- Clue Data ---
+# Add "puzzle_image": "filename.png" to use an image instead of text.
+clues = [
+    {
+        "title": "Clue 1: Visual Puzzle",
+        "qr": "clue_01_qr.png",
+        "puzzle_image": "puzzle_01.png",  # This will trigger image rendering
+        "text": "" # Text is ignored if image is present, or you can code to show both
+    },
+    {
+        "title": "Clue 2: Text Puzzle",
+        "qr": "clue_02_qr.png",
+        "puzzle_image": None,             # No image, will render text
+        "text": "This is a standard text clue. Decode the cipher to proceed."
+    },
+    # ... add your other clues here
+]
+
+def draw_wrapped_text(c, text, x, y, max_width):
+    """Helper to draw wrapped text."""
+    text_object = c.beginText(x, y)
+    text_object.setFont("Courier", 12)
+    words = text.split()
+    line = ""
+    for word in words:
+        if c.stringWidth(line + word, "Courier", 12) < max_width:
+            line += word + " "
+        else:
+            text_object.textLine(line)
+            line = word + " "
+    text_object.textLine(line)
+    c.drawText(text_object)
+
+def create_pdf():
+    c = canvas.Canvas(output_filename, pagesize=A4)
+    width, height = A4
+    
+    # Grid setup
+    cols = int((width - margin_x) // (card_width + spacing))
+    rows = int((height - margin_y) // (card_height + spacing))
+    
+    x_offset = margin_x
+    y_offset = height - margin_y - card_height
+    count_on_page = 0
+    
+    for i, clue in enumerate(clues):
+        # 1. Draw Card Border
+        c.setLineWidth(1)
+        c.setStrokeColorRGB(0, 0, 0)
+        c.rect(x_offset, y_offset, card_width, card_height)
+        
+        # 2. Draw Title
+        title_y = y_offset + card_height - 1.5*cm
+        c.setFont("Courier-Bold", 14)
+        c.drawString(x_offset + 0.5*cm, title_y, clue["title"])
+        c.line(x_offset + 0.5*cm, title_y - 0.3*cm, x_offset + card_width - 0.5*cm, title_y - 0.3*cm)
+        
+        # 3. Define Content Area (Space between title line and QR code)
+        content_top = title_y - 0.5*cm
+        content_bottom = y_offset + 0.25*cm + qr_size  # Top of QR code area
+        content_height = content_top - content_bottom
+        content_width = card_width - 1*cm
+        
+        # 4. Draw Content (Image or Text)
+        puzzle_img_name = clue.get("puzzle_image")
+        
+        if puzzle_img_name:
+            img_path = os.path.join(images_folder, puzzle_img_name)
+            if os.path.exists(img_path):
+                # Calculate aspect ratio to fit image in content area
+                img = ImageReader(img_path)
+                iw, ih = img.getSize()
+                aspect = iw / ih
+                
+                # Fit to width
+                draw_w = content_width
+                draw_h = draw_w / aspect
+                
+                # If too tall, fit to height
+                if draw_h > content_height:
+                    draw_h = content_height
+                    draw_w = draw_h * aspect
+                
+                # Center the image in the content area
+                img_x = x_offset + 0.5*cm + (content_width - draw_w) / 2
+                img_y = content_bottom + (content_height - draw_h) / 2
+                
+                c.drawImage(img_path, img_x, img_y, width=draw_w, height=draw_h)
+            else:
+                c.setFont("Helvetica", 10)
+                c.drawString(x_offset + 0.5*cm, y_offset + card_height/2, f"Missing: {puzzle_img_name}")
+        else:
+            # Fallback to text
+            draw_wrapped_text(c, clue.get("text", ""), x_offset + 0.5*cm, content_top, content_width)
+
+        # 5. Draw QR Code (Bottom Right)
+        qr_path = os.path.join(qr_folder, clue["qr"])
+        if os.path.exists(qr_path):
+            c.drawImage(qr_path, 
+                        x_offset + card_width - qr_size - 0.25*cm, 
+                        y_offset + 0.25*cm, 
+                        width=qr_size, height=qr_size)
+            
+        # 6. Pagination Logic
+        count_on_page += 1
+        if count_on_page % (cols * rows) == 0 and i < len(clues) - 1:
+            c.showPage()
+            x_offset = margin_x
+            y_offset = height - margin_y - card_height
+            count_on_page = 0
+        else:
+            x_offset += card_width + spacing
+            if x_offset + card_width > width:
+                x_offset = margin_x
+                y_offset -= (card_height + spacing)
+
+    c.save()
+    print(f"Generated {output_filename}")
+
+if __name__ == "__main__":
+    create_pdf()
