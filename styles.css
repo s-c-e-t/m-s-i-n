@@ -52,21 +52,143 @@ body.allow-scroll {
   overflow: auto;
 }
 
-@media (orientation: landscape) and (max-height: 600px) {
-  .container {
-    width: 100%;
-    max-width: none;
-    height: 100%;
-    max-height: none;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-  }
-}
-
 /* Keep the rest of your styles (slightly reformatted) */
 h1 {
   text-align: center;
+  background: linear-gradient(to right, #ff0000, #00ff00); /* red to green festive gradient */
+  color: #000;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); /* subtle neon glow */
+  font-family: 'Lucida Console', monospace; /* spy/mission style */
+}
+
+select {
+  display: block;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #0f0; /* neon green border */
+  background-color: #222;
+  color: #0f0; /* neon text */
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px #0f0;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #555;
+  color: #aaa;
+  box-shadow: none;
+}
+
+button:active {
+  transform: scale(0.97);
+  background-color: #0f0;
+  color: #000;
+  box-shadow: 0 0 5px #0f0;
+  transition: none;
+}
+
+#pages button {
+  text-align: left;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  border: 1px solid #0f0;
+  background-color: #111;
+  color: #0f0;
+}
+
+.hint {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem;
+  margin: 0.25rem 0;
+  border-left: 3px solid #ff0;
+  font-style: italic;
+}
+
+.message {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.message.success { background-color: rgba(0, 255, 0, 0.2); color: #0f0; }
+.message.error { background-color: rgba(255, 0, 0, 0.2); color: #f00; }  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #0f0; /* neon green border */
+  background-color: #222;
+  color: #0f0; /* neon text */
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px #0f0;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #555;
+  color: #aaa;
+  box-shadow: none;
+}
+
+button:active {
+  transform: scale(0.97);
+  background-color: #0f0;
+  color: #000;
+  box-shadow: 0 0 5px #0f0;
+  transition: none;
+}
+
+#pages button {
+  text-align: left;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  border: 1px solid #0f0;
+  background-color: #111;
+  color: #0f0;
+}
+
+.hint {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem;
+  margin: 0.25rem 0;
+  border-left: 3px solid #ff0;
+  font-style: italic;
+}
+
+.message {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.message.success { background-color: rgba(0, 255, 0, 0.2); color: #0f0; }
+.message.error { background-color: rgba(255, 0, 0, 0.2); color: #f00; }  text-align: center;
   background: linear-gradient(to right, #ff0000, #00ff00); /* red to green festive gradient */
   color: #000;
   padding: 1rem;
