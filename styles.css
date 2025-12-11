@@ -52,6 +52,18 @@ body.allow-scroll {
   overflow: auto;
 }
 
+@media (orientation: landscape) and (max-height: 600px) {
+  .container {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
 /* Keep the rest of your styles (slightly reformatted) */
 h1 {
   text-align: center;
