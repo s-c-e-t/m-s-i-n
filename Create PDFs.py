@@ -6,14 +6,14 @@ from reportlab.lib.utils import ImageReader
 from reportlab.lib.units import cm
 
 # --- Configuration ---
-output_filename = "clue_cards_v4.pdf"
+output_filename = "clue_cards.pdf"
 qr_folder = "QR Codes"       # Folder containing QR codes
 images_folder = "puzzles"    # Folder containing puzzle images
 card_width = 10 * cm
 card_height = 10 * cm
 qr_size = 2.5 * cm
 margin_x = 1.0 * cm          # Minimum margin
-margin_y = 1.5 * cm          # Minimum margin
+margin_y = 1.0 * cm          # Minimum margin
 spacing = 1.0 * cm           # Vertical/Horizontal spacing between cards
 
 DOUBLE_SIDED = True          # If True, generates back pages with letters
@@ -25,74 +25,92 @@ clues = [
         "title": "Secret Mission",
         "qr": "clue_01_qr.png",
         "puzzle_image": None,
-        "text": "[NAME]!\n \
+        "text": "ALEX!\n \
                  You've been selected for a very important mission. A great reward awaits you, should you succeed.\n \
                  There are others here that will help you, but they know less than you so don't expect much.\n \
-                 Now, there seems to be more people here then available chairs...",
-        "back_text": "A"
+                 Now, didn't Grandma ask you to do something...",
+        "back_text": "C",
+        "note": "on door to crawl space"
     },
     {
         "title": "A Private Conversation",
         "qr": "clue_02_qr.png",
         "puzzle_image": None,
-        "text": "'You're the best!'",
-        "back_text": "B"
+        "text": "Oh look, another one of these things.\n \
+                Now, when you get upstairs exclaim that you've brought up this chair and listen closely for\n \
+                'You're the best!'",
+        "back_text": "U",
+        "note": "in crawl space, on chair"
+    },
+    {
+        "title": "I Can't see yoU",
+        "qr": "clue_03_qr.png",
+        "puzzle_image": None,
+        "text": "Did you notice, there's something on the back of these...\n \
+                \n \
+                \n \
+                \n \
+                \n \
+                \n \
+                If you haven't tried it yet, you can scan the QR code to get help.",
+        "back_text": "P",
+        "note": "in Susan's pocket"
     },
     {
         "title": "Logic Puzzle",
-        "qr": "clue_03_qr.png",
+        "qr": "clue_04_qr.png",
         "puzzle_image": "Logic puzzle.png",
         "text": "",
-        "back_text": "C"
-    },
-    {
-        "title": "Clue 4: C.U.P.",
-        "qr": "clue_04_qr.png",
-        "puzzle_image": None,
-        "text": "Type your puzzle text for Clue 4 here...",
-        "back_text": "D"
+        "back_text": "D",
+        "note": "in a bathroom mirror"
     },
     {
         "title": "Clue 5: Tall or Small",
         "qr": "clue_05_qr.png",
         "puzzle_image": None,
         "text": "Type your puzzle text for Clue 5 here...",
-        "back_text": "E"
+        "back_text": "E",
+        "note": "under Alex's dinner plate"
     },
     {
         "title": "Clue 6: Getting Thirsty?",
         "qr": "clue_06_qr.png",
         "puzzle_image": None,
         "text": "Type your puzzle text for Clue 6 here...",
-        "back_text": "F"
+        "back_text": "F",
+        "note": "in Jacob's pocket"
     },
     {
         "title": "Clue 7: Hmmm?",
         "qr": "clue_07_qr.png",
         "puzzle_image": None,
         "text": "Type your puzzle text for Clue 7 here...",
-        "back_text": "G"
+        "back_text": "G",
+        "note": "in the drink's cabinet"
     },
     {
         "title": "Clue 8: Candid Cousin",
         "qr": "clue_08_qr.png",
         "puzzle_image": None,
         "text": "Type your puzzle text for Clue 8 here...",
-        "back_text": "H"
+        "back_text": "H",
+        "note": "upstairs living room, under a cushion?"
     },
     {
         "title": "Clue 9: Pee-ew",
         "qr": "clue_09_qr.png",
         "puzzle_image": None,
         "text": "Type your puzzle text for Clue 9 here...",
-        "back_text": "I"
+        "back_text": "I",
+        "note": "in Kate's pocket"
     },
     {
         "title": "Clue 10: The End",
         "qr": "clue_10_qr.png",
         "puzzle_image": None,
         "text": "Type your puzzle text for Clue 10 here...",
-        "back_text": "J"
+        "back_text": "J",
+        "note": "in Benjamin's diaper... bag"
     }
 ]
 
@@ -160,7 +178,7 @@ def render_card_content(c, clue, x, y):
     c.rect(x, y, card_width, card_height)
 
     # 2. Draw Title
-    title_y = y + card_height - 1.5*cm
+    title_y = y + card_height - 0.75*cm
     c.setFont("Courier-Bold", 14)
     c.drawString(x + 0.5*cm, title_y, clue["title"])
 
@@ -264,7 +282,6 @@ def create_pdf():
 
     cards_per_page = cols * rows
 
-    # Process clues in batches
     for i in range(0, len(clues), cards_per_page):
         batch = clues[i : i + cards_per_page]
 
@@ -272,7 +289,12 @@ def create_pdf():
         actual_rows = math.ceil(batch_count / cols)
 
         # Total height of the actual content
-        grid_height = actual_rows * card_height + (actual_rows - 1) * spacing
+        # Account for potential note height above cards
+        note_line_height = 0.5 * cm # Approximate height for the note
+        additional_height_for_notes = note_line_height if any(clue.get("note", "") for clue in batch) else 0
+
+        grid_height = actual_rows * (card_height + additional_height_for_notes) + (actual_rows - 1) * spacing
+
         # Total width of the actual content (max cols used)
         actual_cols = min(batch_count, cols)
         grid_width = actual_cols * card_width + (actual_cols - 1) * spacing
@@ -288,6 +310,14 @@ def create_pdf():
 
             x = start_x + col * (card_width + spacing)
             y = start_y - row * (card_height + spacing)
+
+            # Draw the note above the card
+            note_text = clue.get("note")
+            if note_text:
+                c.setFont("Helvetica-Oblique", 9)
+                c.setFillColorRGB(0.5, 0.5, 0.5) # Gray color for notes
+                c.drawString(x + 0.5*cm, y + card_height + 0.2*cm, f"Setup Note: {note_text}")
+                c.setFillColorRGB(0, 0, 0) # Reset color to black for card content
 
             render_card_content(c, clue, x, y)
 
