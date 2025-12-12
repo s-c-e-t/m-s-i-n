@@ -5,35 +5,35 @@ from reportlab.lib.utils import ImageReader
 from reportlab.lib.units import cm
 
 # --- Configuration ---
-output_filename = "clue_cards_v3.pdf"
+output_filename = "clue_cards_v4.pdf"
 qr_folder = "QR Codes"       # Folder containing QR codes
-images_folder = "puzzles"    # Folder containing puzzle images (if any)
+images_folder = "puzzles"    # Folder containing puzzle images
 card_width = 10 * cm
 card_height = 10 * cm
 qr_size = 2.5 * cm
-margin_x = 1.0 * cm          # INCREASED: Safer margin to prevent printer cutoff
+margin_x = 1.0 * cm
 margin_y = 1.5 * cm          # Top/Bottom margin
-spacing = 1.0 * cm           # INCREASED: Vertical spacing between cards
+spacing = 1.0 * cm           # Vertical spacing between cards
 
 # --- Clue Data ---
 clues = [
     {
-        "title": "Clue 1: Seriously Do This",
+        "title": "Secret Mission",
         "qr": "clue_01_qr.png",
-        "puzzle_image": "None.png",
-        "text": "Type your puzzle text for Clue 1 here..."
+        "puzzle_image": None,
+        "text": ""
     },
     {
-        "title": "Clue 2: A Private Conversation",
+        "title": "A Private Conversation",
         "qr": "clue_02_qr.png",
         "puzzle_image": None,
-        "text": "This is a standard text clue. Decode the cipher to proceed."
+        "text": "'You're the best!'"
     },
     {
-        "title": "Clue 3: Logic Puzzle",
+        "title": "Logic Puzzle",
         "qr": "clue_03_qr.png",
-        "puzzle_image": None, 
-        "text": "Type your puzzle text for Clue 3 here..."
+        "puzzle_image": "Logic puzzle.png", 
+        "text": ""
     },
     {
         "title": "Clue 4: C.U.P.",
