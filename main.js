@@ -11,12 +11,12 @@ const PAGES = [
   },
   {
     id: 'clue_03', 
-    title: 'Clue 3: Logic Puzzle', 
+    title: 'Clue 3: Eye can\'t see yoU', 
     file: 'clues/clue_03.html'
   },
   {
     id: 'clue_04',
-    title: 'Clue 4: C.U.P.',
+    title: 'Clue 4: Logic Puzzle',
     file: 'clues/clue_04.html'
   },
   {
