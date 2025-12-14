@@ -1,9 +1,11 @@
 import os
 import math
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from reportlab.lib.units import cm
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 # --- Configuration ---
 output_filename = "clue_cards.pdf"
@@ -11,7 +13,7 @@ qr_folder = "QR Codes"       # Folder containing QR codes
 images_folder = "puzzles"    # Folder containing puzzle images
 card_width = 10 * cm
 card_height = 10 * cm
-qr_size = 2.5 * cm
+qr_size = 2.0 * cm
 margin_x = 1.0 * cm          # Minimum margin
 margin_y = 1.0 * cm          # Minimum margin
 spacing = 1.0 * cm           # Vertical/Horizontal spacing between cards
@@ -19,98 +21,131 @@ spacing = 1.0 * cm           # Vertical/Horizontal spacing between cards
 DOUBLE_SIDED = True          # If True, generates back pages with letters
 BACK_FONT_SIZE = 72          # Font size for the letter on the back
 
+# --- Use a font that supports emoji ---
+font_path = "C:/Windows/Fonts/seguiemj.ttf" # Change this to your specific font path
+try:
+    pdfmetrics.registerFont(TTFont('SymbolFont', font_path))
+    print(f"Successfully registered {font_path}")
+except Exception as e:
+    print(f"Could not register font: {e}")
+    # Fallback to standard if file not found (will still show squares)
+    pass
+
 # --- Clue Data ---
 clues = [
     {
-        "title": "Secret Mission",
+        "title": "📍 Secret Mission",
         "qr": "clue_01_qr.png",
         "puzzle_image": None,
         "text": "ALEX!\n \
                  You've been selected for a very important mission. A great reward awaits you, should you succeed.\n \
-                 There are others here that will help you, but they know less than you so don't expect much.\n \
-                 Now, didn't Grandma ask you to do something...",
+                 TLocal assets are present but possess low-level clearance. Do not rely on their intel.\n \
+                 Intelligence indicates that The Matriarch has issued a verbal request. This is not a request; it is a directive. Execute her command immediately.",
         "back_text": "C",
         "note": "on door to crawl space"
     },
     {
-        "title": "A Private Conversation",
+        "title": "🥸 A Private Conversation",
         "qr": "clue_02_qr.png",
         "puzzle_image": None,
-        "text": "Oh look, another one of these things.\n \
-                Now, when you get upstairs exclaim that you've brought up this chair and listen closely for\n \
-                'You're the best!'",
+        "text": "Transport the structural support unit (The Chair) to the upper sector.\n \
+                Do not break cover.\n \
+                Maintain proximity to the target and await audio authentication. You are authorized to approach only after the target vocalizes the specific passphrase:\n \
+                'You're the best!'\n \
+                Once confirmed, isolate the target for the data handoff.",
         "back_text": "U",
         "note": "in crawl space, on chair"
     },
     {
-        "title": "I Can't see yoU",
+        "title": "📍 Optical Intel",
         "qr": "clue_03_qr.png",
         "puzzle_image": None,
-        "text": "Did you notice, there's something on the back of these...\n \
+        "text": "Standard operating procedure requires thorough analysis of all intel packets. Inspect the verso (reverse side) of these cards immediately.\n \
                 \n \
                 \n \
                 \n \
                 \n \
-                \n \
-                If you haven't tried it yet, you can scan the QR code to get help.",
+                Additional digital intel is embedded in the QR codes. Scan for hints.",
         "back_text": "P",
-        "note": "in Susan's pocket"
+        "note": "in Susan's pocket (when handing over mention that this is all you have/know)"
     },
     {
-        "title": "Logic Puzzle",
+        "title": "📍 Logic Puzzle",
         "qr": "clue_04_qr.png",
+        "puzzle_image": None,
+        "text": "Compliance with protocol acknowledged. Field competence confirmed.\n \
+                Mission Control now requires an assessment of your deductive reasoning capabilities. Proceed to the next challenge.",
+        "back_text": "??",
+        "note": "in upstairs bathroom mirror"
+    },
+    {
+        "title": "📍 Logic Puzzle",
+        "qr": None,
         "puzzle_image": "Logic puzzle.png",
         "text": "",
-        "back_text": "D",
-        "note": "in a bathroom mirror"
+        "back_text": "??",
+        "note": "in upstairs bathroom mirror"
     },
     {
-        "title": "Clue 5: Tall or Small",
+        "title": "📍🥸 Liquid Intelligence",
         "qr": "clue_05_qr.png",
         "puzzle_image": None,
-        "text": "Type your puzzle text for Clue 5 here...",
-        "back_text": "E",
+        "text": "Logic defenses neutralized. Excellent work, Agent.\n \
+                Mission Control authorizes a tactical pause. Proceed to the supply depot (the drink cabinet).\n \
+                Directive: Maintain cover. Do not consume assets alone. Offer to mix a drink for a fellow operative. The correct target is holding your next data packet and will release it upon receipt of a beverage.",
+        "back_text": "??",
         "note": "under Alex's dinner plate"
     },
     {
-        "title": "Clue 6: Getting Thirsty?",
+        "title": "📍 Spatial",
         "qr": "clue_06_qr.png",
-        "puzzle_image": None,
-        "text": "Type your puzzle text for Clue 6 here...",
-        "back_text": "F",
-        "note": "in Jacob's pocket"
+        "puzzle_image": "Map1.png",
+        "text": "",
+        "back_text": "??",
+        "note": "in the drink cabinet"
     },
     {
-        "title": "Clue 7: Hmmm?",
+        "title": "📍 Awareness",
         "qr": "clue_07_qr.png",
-        "puzzle_image": None,
-        "text": "Type your puzzle text for Clue 7 here...",
-        "back_text": "G",
-        "note": "in the drink's cabinet"
+        "puzzle_image": "Map2.png",
+        "text": "",
+        "back_text": "??",
+        "note": "in Jacob's pocket (hand over when Alex gives him a drink)"
     },
     {
-        "title": "Clue 8: Candid Cousin",
+        "title": "🥸 Quid Pro Quo",
         "qr": "clue_08_qr.png",
         "puzzle_image": None,
-        "text": "Type your puzzle text for Clue 8 here...",
-        "back_text": "H",
+        "text": "Target Agent Kate has intercepted the next data packet.\n \
+                 She is currently classified as 'Non-Hostile but Opportunistic.' She refuses to declassify the intel without compensation.\n \
+                 Initiate a diplomatic exchange. Determine the target's current material needs (Hydration? Sustenance? A specific favour?) and procure the item. The asset will be released upon delivery of the goods.",
+        "back_text": "??", 
         "note": "upstairs living room, under a cushion?"
     },
     {
-        "title": "Clue 9: Pee-ew",
+        "title": "🥸 Bio-Hazard Containment",
         "qr": "clue_09_qr.png",
         "puzzle_image": None,
-        "text": "Type your puzzle text for Clue 9 here...",
-        "back_text": "I",
-        "note": "in Kate's pocket"
+        "text": "Sensors are detecting a localized biological anomaly near Agent Benjamin. Approach with extreme caution.\n \
+                Your objective is concealed within the subject's waste containment unit. Breath holding techniques are recommended.",
+        "back_text": "??",
+        "note": "in Kate's pocket (She must ask for a favour/drink/item before giving it)"
     },
     {
-        "title": "Clue 10: The End",
+        "title": "📍 Clue 10: The End",
         "qr": "clue_10_qr.png",
         "puzzle_image": None,
-        "text": "Type your puzzle text for Clue 10 here...",
-        "back_text": "J",
+        "text": "Mission complete. Data remains encrypted. Compile the characters found on the verso (back) of all previous Intel Packets to authenticate.",
+        "back_text": "??",
         "note": "in Benjamin's diaper... bag"
+    }
+    {
+        "title": "Gift Certificate!",
+        "qr": None,
+        "puzzle_image": None,
+        "text": "I need to make the Gift Certificate. Keep the theme? Have it on one of these cards and/or QR code?",
+        "back_text": "",
+        "note": ""
     }
 ]
 
@@ -170,8 +205,30 @@ def draw_wrapped_text(c, text, x_text_start_abs, y_text_start_abs, overall_conte
              text_object.textLine("") # This will move Y down by leading, creating a gap.
     c.drawText(text_object)
 
+def draw_top_secret_stamp(c, x, y, width, height):
+    print("Print TOP SECRET ??")
+    return
+    c.saveState()
+    c.translate(x + width/2, y + height/2)
+    c.rotate(45)
+    
+    # Draw Border
+    c.setStrokeColorRGB(1, 0, 0) # Red
+    c.setLineWidth(3)
+    c.rect(-2*cm, -0.5*cm, 4*cm, 1*cm)
+    
+    # Draw Text
+    c.setFillColorRGB(1, 0, 0)
+    c.setFont("Helvetica-Bold", 14)
+    c.drawCentredString(0, -0.15*cm, "TOP SECRET")
+    
+    c.restoreState()
+
 def render_card_content(c, clue, x, y):
     """Draws the content of a single card at position x, y."""
+    draw_top_secret_stamp(c, x, y, card_width, card_height)
+
+
     # 1. Draw Card Border
     c.setLineWidth(1)
     c.setStrokeColorRGB(0, 0, 0)
@@ -179,7 +236,17 @@ def render_card_content(c, clue, x, y):
 
     # 2. Draw Title
     title_y = y + card_height - 0.75*cm
-    c.setFont("Courier-Bold", 14)
+    
+    # Use the custom font if the title contains non-standard characters
+    if "📍" in clue["title"] or "🥸" in clue["title"]:
+        # Check if 'SymbolFont' is actually registered first to avoid crash
+        if 'SymbolFont' in pdfmetrics.getRegisteredFontNames():
+            c.setFont("SymbolFont", 14)
+        else:
+            c.setFont("Courier-Bold", 14) # Fallback
+    else:
+        c.setFont("Courier-Bold", 14)
+
     c.drawString(x + 0.5*cm, title_y, clue["title"])
 
     # Divider Line
@@ -192,7 +259,10 @@ def render_card_content(c, clue, x, y):
 
     # Initialize QR bounding box information - calculated early for text wrapping
     qr_abs_bbox = None
-    qr_path = os.path.join(qr_folder, clue["qr"])
+    if clue["qr"] is not None:
+        qr_path = os.path.join(qr_folder, clue["qr"])
+    else:
+        qr_path = os.path.join(qr_folder, "NA")
     if os.path.exists(qr_path):
         # Calculate absolute QR bounding box coordinates
         qr_abs_left = x + card_width - qr_size - 0.25*cm
@@ -270,8 +340,24 @@ def render_back_content(c, clue, x, y):
         c.drawString(text_x, text_y, text)
 
 def create_pdf():
-    c = canvas.Canvas(output_filename, pagesize=A4)
-    width, height = A4
+    # --- Check for file lock and rename if necessary ---
+    final_filename = output_filename
+    base, ext = os.path.splitext(output_filename)
+    counter = 1
+
+    while True:
+        try:
+            if os.path.exists(final_filename):
+                # Try renaming the file to itself to check if it is locked/open
+                os.rename(final_filename, final_filename)
+            break # File is accessible or doesn't exist
+        except OSError:
+            # File is locked, generate a new name
+            final_filename = f"{base}_{counter}{ext}"
+            counter += 1
+
+    c = canvas.Canvas(final_filename, pagesize=letter)
+    width, height = letter
 
     # Grid setup (Calculates how many fit horizontally)
     cols = int((width - margin_x*2) // (card_width + spacing))
@@ -339,7 +425,7 @@ def create_pdf():
             c.showPage()
 
     c.save()
-    print(f"Generated {output_filename}")
+    print(f"Generated {final_filename}")
 
 if __name__ == "__main__":
     create_pdf()
