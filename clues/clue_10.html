@@ -9,9 +9,31 @@
 <body>
   <div class="container">
     <h1>Clue 10: The End</h1>
-    <p>
-      [Content goes here]
-    </p>
+
+    <div>
+      <button id="hint-btn" onclick="showHint()">Reveal Next Hint</button>
+      <div id="hints"></div>
+    </div>
+
+    <script>
+    // --- Clues ---
+    const clues = [
+      '',
+      '**no more hints available for this clue**'
+    ];
+    let hintIndex = 0;
+
+    function showHint() {
+      const div = document.getElementById('hints');
+      div.innerHTML = `<div class="hint">${clues[hintIndex]}</div>`;
+      hintIndex++;
+
+      if (hintIndex >= clues.length) {
+        document.getElementById('hint-btn').style.display = 'none';
+        return;
+      }
+    }
+  </script>
 
     <div style="margin-top: 2rem;">
         <a href="../index.html" class="button">Back to Mission Control</a>
