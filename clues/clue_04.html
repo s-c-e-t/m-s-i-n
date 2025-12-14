@@ -15,7 +15,7 @@
     </p>
 
     <div>
-      <button onclick="showHint()">Reveal Next Hint</button>
+      <button id="hint-btn" onclick="showHint()">Reveal Next Hint</button>
       <div id="hints"></div>
     </div>
 
@@ -41,15 +41,22 @@
       'The Dining Room gift only has one month option now. [Place "O" where Dining Room and January align.]',
       'Kate\'s gift was given in February. (clue 1) [Place "O" where Kate and February align. Don\'t forget the "X"s.]',
       'Susan\'s gift was given in January (only option left), therefore Susan\'s gift is in the...',
-      'Dining Room!'
+      'Dining Room!',
+      'You\'ll find the next clue in the Dining Room',
+      'Where are you sitting?',
+      'Look under your dinner plate',
+      '**no more hints available for this clue'
     ];
     let hintIndex = 0;
 
     function showHint() {
-      if (hintIndex < clues.length) {
-        const div = document.getElementById('hints');
-        div.innerHTML = `<div class="hint">${clues[hintIndex]}</div>`;
-        hintIndex++;
+      const div = document.getElementById('hints');
+      div.innerHTML = `<div class="hint">${clues[hintIndex]}</div>`;
+      hintIndex++;
+
+      if (hintIndex >= clues.length) {
+        document.getElementById('hint-btn').style.display = 'none';
+        return;
       }
     }
 
