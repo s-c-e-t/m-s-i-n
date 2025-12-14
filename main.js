@@ -21,17 +21,17 @@ const PAGES = [
   },
   {
     id: 'clue_05',
-    title: 'Clue 5: Tall or Small',
+    title: 'Clue 5: ___________',
     file: 'clues/clue_05.html'
   },
   {
     id: 'clue_06',
-    title: 'Clue 6: Getting Thirsty?',
+    title: 'Clue 6: ___________',
     file: 'clues/clue_06.html'
   },
   {
     id: 'clue_07',
-    title: 'Clue 7: Hmmm?',
+    title: 'Clue 7: ___________',
     file: 'clues/clue_07.html'
   },
   {
