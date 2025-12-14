@@ -52,7 +52,7 @@ h1 {
   text-align: center;
   background: linear-gradient(to right, #ff0000, #00ff00); /* red to green festive gradient */
   color: #000;
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); /* subtle neon glow */
   font-family: 'Lucida Console', monospace; /* spy/mission style */
