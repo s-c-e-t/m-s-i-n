@@ -1,21 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Mission: Operation Christmas</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <div class="container">
-      <h1>Secret Mission:<br>Operation Christmas</h1>
-      <h4>Welcome, Agent.</h4>
-      <p>Looks like you could use a hand. Don’t worry, we all need a little help sometimes. Just like you did when you brought that chair up from the crawl space. The important thing is to have fun while completing your mission.</p>
-      <p>How can I help?</p>
-      
-      
-      <div id="pages"></div>
-    </div>
-    <script src="main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secret Mission: Operation Christmas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="easter-egg">
+      <h1>
+        🎅
+        <br>
+        <span style="text-shadow: 2px 2px #ff0;">Santa’s Secret Stash</span>
+        <br>
+        🎁
+        <br>
+        <small style="font-size: 0.5em;">(You’re not supposed to be here…)</small>
+      </h1>
+      <h4>Greetings, Curious Navigator!</h4>
+    </header>
+
+    <section class="easter-egg__message">
+      <p>
+        👀 Oops! Looks like you’ve found the behind‑the‑scenes control panel.
+        This is the <strong>master index</strong> that the game‑master uses to jump
+        between clues with a single click.  
+        <em>Hunters never see this page – they only travel by QR‑code.</em>
+      </p>
+
+      <p>
+        🎉 <strong>Congratulations!</strong> You’ve earned an honorary “Tech‑Support
+        Agent” badge. Feel free to bookmark this page for future reference—just
+        remember to keep it hidden from the actual hunters!
+      </p>
+
+      <p style="font-style:italic; color:#555;">
+        — The (Very) Secret Mission Control
+      </p>
+    </section>
+
+    <style>
+      .easter-egg {
+        text-align:center;
+        margin: 2rem 0;
+      }
+      .easter-egg__message {
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+        background: #f0f8ff;
+        color: #000;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+      /* Tiny snowflake animation – because why not? */
+      @keyframes snow {
+        0%   { transform: translateY(-10px); }
+        100% { transform: translateY(110vh); }
+      }
+      .snowflake {
+        position: fixed;
+        top: -10px;
+        font-size: 1.2rem;
+        color: #fff;
+        animation: snow linear infinite;
+        pointer‑events: none;
+      }
+    </style>
+
+    <script>
+    // Create a few snowflakes that drift down the page (only for this secret index)
+      (function(){
+        const count = 30;
+        for(let i=0;i<count;i++){
+          const flake = document.createElement('div');
+          flake.className = 'snowflake';
+          flake.textContent = '❄';
+          flake.style.left = Math.random()*100 + 'vw';
+          flake.style.animationDuration = (3 + Math.random()*5) + 's';
+          flake.style.animationDelay = Math.random()*5 + 's';
+          document.body.appendChild(flake);
+        }
+      })();
+    </script>
+
+
+    <div id="pages"></div>
+  </div>
+  <script src="main.js"></script>
+</body>
 </html>
