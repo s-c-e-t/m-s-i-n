@@ -13,15 +13,10 @@ html, body {
   min-height: 100vh;  /* fallback */
   margin: 0;
   padding: 0;
-  /* Respect device safe areas (iPhone notch / home indicator) */
-  padding-top: env(safe-area-inset-top);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
 
   /* Layout & background */
   display: flex;
-  align-items: center;         /* center vertically */
+  align-items: flex-start;         /* center vertically */
   justify-content: center;     /* center horizontally */
   background: #000 linear-gradient(to bottom, #0f0f0f, #111111);
   color: #eee;
@@ -67,6 +62,10 @@ select {
   display: block;
   margin-top: 0.25rem;
   margin-bottom: 0.5rem;
+}
+
+a {
+  opacity: 0;
 }
 
 button {
