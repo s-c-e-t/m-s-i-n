@@ -3,15 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clue 2: A Private Conversation</title>
+  <title>A Private Conversation</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Clue 2: A Private Conversation</h1>
-    <p>
-      [Content goes here]
-    </p>
+    <h1>A Private Conversation</h1>
+
+    <p>Oh no, if you're here I fear that means our operative is too distracted with the festivities and missed their cue.</p>
+
+    <p>If you don't know who you are supposed to meet up with you can try mentioning you brought up the chair again, but <strong>louder!</strong></p>
+
+    <small>If you need more help click the button below.</small>
+    <br><br>
+
+    <div>
+      <button id="hint-btn" onclick="showHint()">Reveal Next Hint</button>
+      <div id="hints"></div>
+    </div>
+
+    <script>
+    // --- Clues ---
+    const clues = [
+      'The person that you need to meet with will only hand over the next step if you get them alone.',
+      'They were born before the 70\'s',
+      'They are not the person that asked you to get the chair.',
+      'They are not balding.',
+      'It is...',
+      'your Aunt, Susan',
+      'Still here? Uh oh... Try this "Sue, may I please have the clue in your pocket?" then show her the next hint.',
+      'Operative Susan, hand over the clue to Alex. You are dismissed. Thank you.',
+      '**no more hints available for this clue**'
+    ];
+    let hintIndex = 0;
+
+    function showHint() {
+      const div = document.getElementById('hints');
+      div.innerHTML = `<div class="hint">${clues[hintIndex]}</div>`;
+      hintIndex++;
+
+      if (hintIndex >= clues.length) {
+        document.getElementById('hint-btn').style.display = 'none';
+        return;
+      }
+    }
+  </script>
+
+  <p style="font-style:italic; color:#555;">
+        — Secret Mission Control
+  </p>
 
     <div style="margin-top: 2rem;">
         <a href="../index.html" class="button">Back to Mission Control</a>
