@@ -3,15 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clue 3: Eye can't see yoU</title>
+  <title>Eye can't see yoU</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Clue 3: Eye can't see yoU</h1>
-    <p>
-      [Content goes here]
-    </p>
+    <h1>Eye can't see yoU</h1>
+
+    <div>
+      <button id="hint-btn" onclick="showHint()">Reveal Next Hint</button>
+      <div id="hints"></div>
+    </div>
+
+    <script>
+    // --- Clues ---
+    const clues = [
+      'Eye = I',
+      'B = Bee',
+      'C = See',
+      'U = You',
+      'P = Pee',
+      'C U P = ?',
+      'see you pee',
+      'Where do you go pee?',
+      'The bathroom!',
+      'Find the next clue in the upstairs bathroom',
+      'It\'s in the mirror',
+      '**no more hints available for this clue**'
+    ];
+    let hintIndex = 0;
+
+    function showHint() {
+      const div = document.getElementById('hints');
+      div.innerHTML = `<div class="hint">${clues[hintIndex]}</div>`;
+      hintIndex++;
+
+      if (hintIndex >= clues.length) {
+        document.getElementById('hint-btn').style.display = 'none';
+        return;
+      }
+    }
+  </script>
+
 
     <div style="margin-top: 2rem;">
         <a href="../index.html" class="button">Back to Mission Control</a>
