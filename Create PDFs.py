@@ -137,7 +137,7 @@ clues = [
         "puzzle_image": None,
         "text": "Mission complete. Data remains encrypted. Compile the characters found on the verso (back) of all previous Intel Packets to authenticate.",
         "back_text": "??",
-        "note": "in Benjamin's diaper... bag"
+        "note": "in Benjamin's diaper, or near there"
     }
     {
         "title": "Gift Certificate!",
