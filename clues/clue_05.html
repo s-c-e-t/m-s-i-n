@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clue 5: Tall or Small</title>
+  <title>Tall or Small</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Clue 5: Tall or Small</h1>
+    <h1>Tall or Small</h1>
 
     <div>
       <button id="hint-btn" onclick="showHint()">Reveal Next Hint</button>
@@ -18,7 +18,14 @@
     <script>
     // --- Clues ---
     const clues = [
-      '',
+      'The target is part of the younger generation.',
+      'Subject exceeds standard vertical parameters.',
+      'They are the offspring of one of your parent\'s siblings.',
+      'Target Identity: Your tall cousin.\nProtocol: Hand them a drink or "Cheers" with them to receive the packet.',
+      'Tall cousin = Agent Jacob',
+      'Handing Agent Jacob a drink or "Cheers" with him will get you the next clue.',
+      'Still don\'t have the clue? Agent Jacob must have forgotten his training. Go to him and show him the next hint.',
+      'Agent Jacob, you have forgotten your training! Hand over the clue. You are dismissed.',
       '**no more hints available for this clue**'
     ];
     let hintIndex = 0;
@@ -33,7 +40,7 @@
         return;
       }
     }
-  </script>
+    </script>
 
     <div style="margin-top: 2rem;">
         <a href="../index.html" class="button">Back to Mission Control</a>
