@@ -91,8 +91,9 @@ clues = [
         "qr": "clue_05_qr.png",
         "puzzle_image": None,
         "text": "Logic defenses neutralized. Excellent work, Agent.\n \
-                Mission Control authorizes a tactical pause. Proceed to the supply depot (the drink cabinet).\n \
-                Directive: Maintain cover. Do not consume assets alone. Offer to mix a drink for a fellow operative. The correct target is holding your next data packet and will release it upon receipt of a beverage.",
+                 Mission Control authorizes a tactical pause. Proceed to the supply depot (the drink cabinet).\n \
+                 Directive: Maintain cover. Do not consume assets alone. To retrieve the next packet, you must initiate a 'Cheers' protocol or offer a beverage to a specific fellow operative.\n \
+                 Note: The target is disguised as a civilian. Trial and error is authorized.",
         "back_text": "??",
         "note": "under Alex's dinner plate"
     },
@@ -110,7 +111,7 @@ clues = [
         "puzzle_image": "Map2.png",
         "text": "",
         "back_text": "??",
-        "note": "in Jacob's pocket (hand over when Alex gives him a drink)"
+        "note": "in Jacob's pocket (hand over when Alex gives him a drink, or cheers with him.)"
     },
     {
         "title": "🥸 Quid Pro Quo",
