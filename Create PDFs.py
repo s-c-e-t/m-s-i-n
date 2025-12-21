@@ -93,7 +93,7 @@ clues = [
         "text": "Logic defenses neutralized. Excellent work, Agent.\n \
                  Mission Control authorizes a tactical pause. Proceed to the supply depot (the drink cabinet).\n \
                  Directive: Maintain cover. Do not consume assets alone. To retrieve the next packet, you must initiate a 'Cheers' protocol or offer a beverage to a specific fellow operative.\n \
-                 Note: The target is disguised as a civilian. Trial and error is authorized.",
+                 Note: The target, Agent Tall, is disguised as a civilian.",
         "back_text": "??",
         "note": "under Alex's dinner plate"
     },
@@ -117,9 +117,10 @@ clues = [
         "title": "🥸 Quid Pro Quo",
         "qr": "clue_08_qr.png",
         "puzzle_image": None,
-        "text": "Target Agent Kate has intercepted the next data packet.\n \
-                 She is currently classified as 'Non-Hostile but Opportunistic.' She refuses to declassify the intel without compensation.\n \
-                 Initiate a diplomatic exchange. Determine the target's current material needs (Hydration? Sustenance? A specific favour?) and procure the item. The asset will be released upon delivery of the goods.",
+        "text": "Target: Agent Kate.\n \
+                 Status: Data intercepted.\n \
+                 Analysis: The asset has been reclassified as 'Mercenary.' She possesses the intel but refuses to release it voluntarily.\n \
+                 Mission Directive: This is not a conversation; it is a transaction. Find her currency. Pay the price.",
         "back_text": "??", 
         "note": "upstairs living room, under a cushion?"
     },
@@ -127,7 +128,7 @@ clues = [
         "title": "🥸 Bio-Hazard Containment",
         "qr": "clue_09_qr.png",
         "puzzle_image": None,
-        "text": "Sensors are detecting a localized biological anomaly near Agent Benjamin. Approach with extreme caution.\n \
+        "text": "Sensors are detecting a localized biological anomaly near Agent Small. Approach with extreme caution.\n \
                 Your objective is concealed within the subject's waste containment unit. Breath holding techniques are recommended.",
         "back_text": "??",
         "note": "in Kate's pocket (She must ask for a favour/drink/item before giving it)"
@@ -136,10 +137,10 @@ clues = [
         "title": "📍 Clue 10: The End",
         "qr": "clue_10_qr.png",
         "puzzle_image": None,
-        "text": "Mission complete. Data remains encrypted. Compile the characters found on the verso (back) of all previous Intel Packets to authenticate.",
+        "text": "Mission complete. Data remains encrypted. Compile the characters found on the back of all previous Intel Packets to authenticate.",
         "back_text": "??",
         "note": "in Benjamin's diaper, or near there"
-    }
+    },
     {
         "title": "Gift Certificate!",
         "qr": None,
