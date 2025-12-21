@@ -322,3 +322,10 @@ input[type=text] {
 
 .message.success { background-color: rgba(0, 255, 0, 0.2); color: #0f0; }
 .message.error { background-color: rgba(255, 0, 0, 0.2); color: #f00; }
+
+.tip {
+  font-size: 0.7rem;
+  margin-top: 1rem;
+}
+
+

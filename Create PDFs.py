@@ -39,10 +39,10 @@ clues = [
         "puzzle_image": None,
         "text": "ALEX!\n \
                  You've been selected for a very important mission. A great reward awaits you, should you succeed.\n \
-                 TLocal assets are present but possess low-level clearance. Do not rely on their intel.\n \
+                 Local assets are present but possess low-level clearance. Do not rely on their intel.\n \
                  Intelligence indicates that The Matriarch has issued a verbal request. This is not a request; it is a directive. Execute her command immediately.",
         "back_text": "C",
-        "note": "on door to crawl space"
+        "note": "Tape to the door to crawl space."
     },
     {
         "title": "🥸 A Private Conversation",
@@ -52,22 +52,22 @@ clues = [
                 Do not break cover.\n \
                 Maintain proximity to the target and await audio authentication. You are authorized to approach only after the target vocalizes the specific passphrase:\n \
                 'You're the best!'\n \
-                Once confirmed, isolate the target for the data handoff.",
+                Once confirmed, isolate the target for the data hand-off.",
         "back_text": "U",
-        "note": "in crawl space, on chair"
+        "note": "In crawl space, on the chair."
     },
     {
-        "title": "📍 Optical Intel",
+        "title": "📍 U R OK!",
         "qr": "clue_03_qr.png",
         "puzzle_image": None,
-        "text": "Standard operating procedure requires thorough analysis of all intel packets. Inspect the verso (reverse side) of these cards immediately.\n \
-                \n \
+        "text": "Successful hand-off, well done Agent!\n \
+                Inspect the reverse side of the 3 cards in your possession to proceed.\n \
                 \n \
                 \n \
                 \n \
                 Additional digital intel is embedded in the QR codes. Scan for hints.",
         "back_text": "P",
-        "note": "in Susan's pocket (when handing over mention that this is all you have/know)"
+        "note": "In Susan's pocket. When handing over mention that this is all you have/know."
     },
     {
         "title": "📍 Logic Puzzle",
@@ -76,7 +76,7 @@ clues = [
         "text": "Compliance with protocol acknowledged. Field competence confirmed.\n \
                 Mission Control now requires an assessment of your deductive reasoning capabilities. Proceed to the next challenge.",
         "back_text": "S",
-        "note": "in upstairs bathroom mirror"
+        "note": "In upstairs bathroom mirror."
     },
     {
         "title": "📍 Logic Puzzle",
@@ -84,7 +84,7 @@ clues = [
         "puzzle_image": "Logic puzzle.png",
         "text": "",
         "back_text": "R",
-        "note": "in upstairs bathroom mirror"
+        "note": "In upstairs bathroom mirror."
     },
     {
         "title": "📍🥸 Liquid Intelligence",
@@ -92,10 +92,9 @@ clues = [
         "puzzle_image": None,
         "text": "Logic defenses neutralized. Excellent work, Agent.\n \
                  Mission Control authorizes a tactical pause. Proceed to the supply depot (the drink cabinet).\n \
-                 Directive: Maintain cover. Do not consume assets alone. To retrieve the next packet, you must initiate a 'Cheers' protocol or offer a beverage to a specific fellow operative.\n \
-                 Note: The target, Agent Tall, is disguised as a civilian.",
+                 Directive: Maintain cover. Do not consume assets alone. To retrieve the next packet, you must initiate a 'Cheers' protocol or offer a beverage to a specific fellow operative.",
         "back_text": "A",
-        "note": "under Alex's dinner plate"
+        "note": "Under Alex's dinner plate."
     },
     {
         "title": "📍 Spatial",
@@ -103,7 +102,7 @@ clues = [
         "puzzle_image": "Map1.png",
         "text": "",
         "back_text": "I",
-        "note": "in the drink cabinet"
+        "note": "In the drink cabinet."
     },
     {
         "title": "📍 Awareness",
@@ -111,7 +110,7 @@ clues = [
         "puzzle_image": "Map2.png",
         "text": "",
         "back_text": "D",
-        "note": "in Jacob's pocket (hand over when Alex gives him a drink, or cheers with him.)"
+        "note": "In Jacob's pocket. Hand over when Alex gives him a drink, or cheers with him."
     },
     {
         "title": "🥸 Quid Pro Quo",
@@ -122,7 +121,7 @@ clues = [
                  Analysis: The asset has been reclassified as 'Mercenary.' She possesses the intel but refuses to release it voluntarily.\n \
                  Mission Directive: This is not a conversation; it is a transaction. Find her currency. Pay the price.",
         "back_text": "B", 
-        "note": "upstairs living room, under a cushion?"
+        "note": "Upstairs living room, under a cushion."
     },
     {
         "title": "🥸 Bio-Hazard Containment",
@@ -131,15 +130,15 @@ clues = [
         "text": "Sensors are detecting a localized biological anomaly near Agent Small. Approach with extreme caution.\n \
                 Your objective is concealed within the subject's waste containment unit. Breath holding techniques are recommended.",
         "back_text": "O",
-        "note": "in Kate's pocket (She must ask for a favour/drink/item before giving it)"
+        "note": "In Kate's pocket."
     },
     {
-        "title": "📍 Clue 10: The End",
+        "title": "📍 Mission Complete",
         "qr": "clue_10_qr.png",
         "puzzle_image": None,
         "text": "Mission complete. Data remains encrypted. Compile the characters found on the back of all Intel Packets to authenticate.",
         "back_text": "A",
-        "note": "in Benjamin's diaper, or near there"
+        "note": "In Benjamin's diaper, or near there"
     },
     {
         "title": "Intercepted Intel",
@@ -149,17 +148,28 @@ clues = [
                  Analysis indicates this intel is not currently actionable, but probability of future relevance is high.\n \
                  Protocol: Secure this asset on your person. Do not discard.",
         "back_text": "T", 
-        "note": "Place in a visible spot on the tree"
+        "note": "When he goes to the crawl space. Place in a visible spot on the tree."
     },
     {
         "title": "Lucky Break",
         "qr": None,
         "puzzle_image": None,
-        "text": "Commendation: Excellent situational awareness, Agent.\n \
+        "text": "Excellent situational awareness, Agent.\n \
                  You have located a hidden cache outside of standard mission parameters.\n \
                  This data fragment contains a piece of the final encryption key. Stow it away for the final debrief.",
         "back_text": "R",
-        "note": "Place on his shoe"
+        "note": "When he goes to the crawl space. Place on his shoe."
+    },
+    {
+        "title": "Operation Christmas",
+        "qr": None,
+        "puzzle_image": None,
+        "text": "Alex,\n \
+                You cracked the code!\n \
+                I know you were \"ordered\" to bring up that chair, make time for a one-on-one with your Aunt, share a drink with Jacob, and help Kate... but let's be honest, you probably would have done all that anyway.\n \
+                I hope you enjoyed the mission. I'm so excited to join you on the next one!",
+        "back_text": " ",
+        "note": "Leave with the Gift Certificate"
     }
 ]
 

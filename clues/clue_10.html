@@ -3,12 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The End</title>
+  <title>Mission Complete</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>The End</h1>
+    <h1>Mission Complete</h1>
+
+    <p>
+      Mission status check: Do you have all thirteen characters?
+    </p>
+
+    <small><em>If you need more help click the button below.</em></small>
 
     <div>
       <button id="hint-btn" onclick="showHint()">Reveal Next Hint</button>
@@ -18,7 +24,7 @@
     <script>
     // --- Clues ---
     const clues = [
-      'Mission status check: Do you have all the characters? (If you have 13 letters you can skip the next four hints.)',
+      'If you have 13 letters you can skip the next four hints.',
       'Data Fragment #1: Concealed within the festive foliage.',
       'Check the Tree.',
       'Data Fragment #2: Mobile asset. Inspect footwear.',

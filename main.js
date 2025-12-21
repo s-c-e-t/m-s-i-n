@@ -1,7 +1,7 @@
 const PAGES = [
   {
     id: 'clue_01', 
-    title: 'Clue 1: Seriously Do This', 
+    title: 'Clue 01: Secret Mission', 
     file: 'clues/clue_01.html'
   },
   {
@@ -11,7 +11,7 @@ const PAGES = [
   },
   {
     id: 'clue_03', 
-    title: 'Clue 3: Eye can\'t see yoU', 
+    title: 'Clue 3: U R OK!', 
     file: 'clues/clue_03.html'
   },
   {
@@ -21,32 +21,32 @@ const PAGES = [
   },
   {
     id: 'clue_05',
-    title: 'Clue 5: ___________',
+    title: 'Clue 5: Liquid Intelligence',
     file: 'clues/clue_05.html'
   },
   {
     id: 'clue_06',
-    title: 'Clue 6: ___________',
+    title: 'Clue 6: Spatial',
     file: 'clues/clue_06.html'
   },
   {
     id: 'clue_07',
-    title: 'Clue 7: ___________',
+    title: 'Clue 7: Awareness',
     file: 'clues/clue_07.html'
   },
   {
     id: 'clue_08',
-    title: 'Clue 8: Candid Cousin',
+    title: 'Clue 8: Quid Pro Quo',
     file: 'clues/clue_08.html'
   },
   {
     id: 'clue_09',
-    title: 'Clue 9: Pee-ew',
+    title: 'Clue 9: Bio-Hazard Containment',
     file: 'clues/clue_09.html'
   },
   {
     id: 'clue_10',
-    title: 'Clue 10: The End',
+    title: 'Clue 10: Mission Complete',
     file: 'clues/clue_10.html'
   }
 ];

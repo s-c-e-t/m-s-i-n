@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logic Puzzle Hints</title>
+  <title>Logic Puzzle</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Logic Puzzle Hints</h1>
+    <h1>Logic Puzzle</h1>
     <p>
-      Use the clues to figure out which month each person gave the gift and the correct room that it's in.
-      Click the button below to receive a hint.
+      Use the clues to figure out which month each person gave the gift and the correct room that it's in. Then answer the question on the bottom to know where to go next.
     </p>
+
+    <small><em>If you need more help click the button below.</em></small>
 
     <div>
       <button id="hint-btn" onclick="showHint()">Reveal Next Hint</button>
@@ -24,6 +25,7 @@
       <div id="answers"></div>
       <button onclick="checkSolution()">Check Solution</button>
       <div id="message"></div>
+      <div id="tip"></div>
     </div>
   </div>
 
@@ -42,10 +44,11 @@
       'Kate\'s gift was given in February. (clue 1) [Place "O" where Kate and February align. Don\'t forget the "X"s.]',
       'Susan\'s gift was given in January (only option left), therefore Susan\'s gift is in the...',
       'Dining Room!',
+      'Congrats on figuring out where to find the next clue! (more hints available if needed)',
       'You\'ll find the next clue in the Dining Room',
       'Where are you sitting?',
       'Look under your dinner plate',
-      '**no more hints available for this clue'
+      '**no more hints available for this clue**'
     ];
     let hintIndex = 0;
 
@@ -108,9 +111,12 @@
       });
 
       const msgDiv = document.getElementById('message');
+      const tipDiv = document.getElementById('tip');
       if (correct) {
         msgDiv.textContent = 'Mission success! Puzzle solved.';
         msgDiv.className = 'message success';
+        tipDiv.textContent = 'If you need a hint to find the next clue click the "REVEAL NEXT HINT" button until you see "Congrats..." (13 clicks, if you refresh the page)'
+        tipDiv.className = 'tip message';
       } else {
         msgDiv.textContent = 'Not correct — check the clues and try again.';
         msgDiv.className = 'message error';
